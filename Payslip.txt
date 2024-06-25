@@ -1,0 +1,64 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+public class PayslipGeneratorV3 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter Basic Pay: ");
+        double basicPay = scanner.nextDouble();
+
+        double da = 0.34 * basicPay;
+        double hra = 0.18 * (da + basicPay);
+        double ta = 3600 + 0.34 * 3600;
+        double grossAmount = da + hra + ta + basicPay;
+
+        double gpf = 0.1 * grossAmount;
+        double tax = 0.2 * grossAmount;
+        double deductions = gpf + tax;
+
+        double netPay = grossAmount - deductions;
+
+        // to display payslip: 
+        System.out.println("\n------------------ Payslip ------------------");
+        System.out.println("Earnings:          |   Deductions:");
+        System.out.println("---------------------------------------------");
+        System.out.printf("Basic Pay: %.2f     |   General Provident Fund (GPF): %.2f%n", basicPay, gpf);
+        System.out.printf("Dearness Allowance (DA): %.2f |   Tax: %.2f%n", da, tax);
+        System.out.printf("House Rent Allowance (HRA): %.2f%n", hra);
+        System.out.printf("Travel Allowance (TA): %.2f%n", ta);
+        System.out.println("---------------------------------------------");
+        System.out.printf("Gross Amount: %.2f   |   Total Deductions: %.2f%n", grossAmount, deductions);
+        System.out.println("---------------------------------------------");
+        System.out.printf("Net Pay: %.2f%n", netPay);
+        System.out.println("---------------------------------------------");
+
+        // to write data into a file
+        String fileName = "C:\\Users\\6\\Documents\\YourPaySlip.txt";
+        try {
+            FileWriter fileWriter = new FileWriter(fileName);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.println("------------------ Payslip ------------------");
+            printWriter.println("Earnings:          |   Deductions:");
+            printWriter.println("---------------------------------------------");
+            printWriter.printf("Basic Pay: %.2f     |   General Provident Fund (GPF): %.2f%n", basicPay, gpf);
+            printWriter.printf("Dearness Allowance (DA): %.2f |   Tax: %.2f%n", da, tax);
+            printWriter.printf("House Rent Allowance (HRA): %.2f%n", hra);
+            printWriter.printf("Travel Allowance (TA): %.2f%n", ta);
+            printWriter.println("---------------------------------------------");
+            printWriter.printf("Gross Amount: %.2f   |   Total Deductions: %.2f%n", grossAmount, deductions);
+            printWriter.println("---------------------------------------------");
+            printWriter.printf("Net Pay: %.2f%n", netPay);
+            printWriter.println("---------------------------------------------");
+            printWriter.close();
+            System.out.println("Payslip data has been written to " + fileName);
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing the payslip data to file.");
+            e.printStackTrace();
+        }
+    }
+}
+
+

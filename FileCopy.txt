@@ -1,0 +1,42 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
+public class FileCopy {
+
+    public static void main(String[] args) {
+        String inputFile = "C:\\Users\\6\\Documents\\input.txt";
+        String outputFile = "C:\\Users\\6\\Documents\\output.txt";
+        try{
+            FileReader fr = new FileReader(inputFile);
+            BufferedReader br = new BufferedReader(fr);
+            
+            FileWriter fw = new FileWriter(outputFile);
+            BufferedWriter bw = new BufferedWriter(fw);
+            String line;
+            
+            while((line = br.readLine())!= null){
+                bw.write(line);
+                bw.newLine();
+                 
+            }
+            br.close();
+            bw.close();
+            fr.close();
+            fw.close();
+            System.out.println("Data has been copied from " + inputFile + " to "+ outputFile);
+        }
+        catch(IOException e){
+            System.err.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        
+            
+    }
+}
+
+
