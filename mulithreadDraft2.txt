@@ -1,0 +1,108 @@
+class MyThread extends Thread {
+    private boolean suspendFlag = false;
+
+    public MyThread(String name) {
+        super(name);
+    }
+
+    public void run() {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(Thread.currentThread().getName() + ": Count " + i);
+
+            // Pausing the thread for 500 milliseconds
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+
+            // Suspending the thread every 5 iterations
+            if (i % 5 == 0) {
+                suspendThread();
+                System.out.println("Thread " + getName() + " suspended.");
+            }
+
+            // Yielding the thread every 3 iterations
+            if (i % 3 == 0) {
+                Thread.yield();
+                System.out.println("Thread " + getName() + " yielded.");
+            }
+        }
+    }
+
+    // Method to suspend the thread
+    synchronized void suspendThread() {
+        suspendFlag = true;
+    }
+
+    // Method to resume the thread
+    synchronized void resumeThread() {
+        suspendFlag = false;
+        notify();
+    }
+
+    public void pause() {
+        suspendThread();
+    }
+
+    public void play() {
+        resumeThread();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MyThread thread1 = new MyThread("Thread 1");
+        MyThread thread2 = new MyThread("Thread 2");
+        MyThread thread3 = new MyThread("Thread 3");
+        MyThread thread4 = new MyThread("Thread 4");
+
+        // Setting thread priorities
+        thread1.setPriority(Thread.MAX_PRIORITY);
+        thread2.setPriority(Thread.NORM_PRIORITY);
+        thread3.setPriority(Thread.MIN_PRIORITY);
+        thread4.setPriority(Thread.NORM_PRIORITY);
+
+        System.out.println("Starting threads...");
+        thread1.start();
+        thread2.start();
+        thread3.start();
+        thread4.start();
+
+        // Stopping thread 1 after 3 seconds
+        try {
+            Thread.sleep(3000);
+            System.out.println("Thread 1 stopping...");
+            thread1.stop();
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+
+        // Resuming thread 2 after 5 seconds
+        try {
+            Thread.sleep(5000);
+            System.out.println("Thread 2 resuming...");
+            thread2.resumeThread();
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+
+        // Pausing thread 3 after 7 seconds
+        try {
+            Thread.sleep(7000);
+            System.out.println("Thread 3 pausing...");
+            thread3.pause();
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+
+        // Resuming thread 4 after 9 seconds
+        try {
+            Thread.sleep(2000);
+            System.out.println("Thread 4 resuming...");
+            thread4.play();
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+    }
+}
