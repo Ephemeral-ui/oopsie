@@ -1,0 +1,45 @@
+import java.util.Vector;
+
+public class ShoppingList {
+    public static void main(String[] args) {
+        // Create a vector to store the shopping list items
+        Vector<String> shoppingList = new Vector<>();
+
+        // Initialize the shopping list with some items
+        shoppingList.add("Milk");
+        shoppingList.add("Bread");
+        shoppingList.add("Eggs");
+        shoppingList.add("Butter");
+        shoppingList.add("Cheese");
+
+        // Print the initial contents of the vector
+        System.out.println("Initial contents of the shopping list:");
+        printVector(shoppingList);
+
+        // (i) Delete an item in the list
+        String itemToDelete = "Bread";
+        shoppingList.remove(itemToDelete);
+        System.out.println("\nAfter deleting \"" + itemToDelete + "\":");
+        printVector(shoppingList);
+
+        // (ii) Add an item at a specified location in the list
+        String newItem = "Yogurt";
+        int insertIndex = 2; // Insert at index 2
+        shoppingList.add(insertIndex, newItem);
+        System.out.println("\nAfter adding \"" + newItem + "\" at index " + insertIndex + ":");
+        printVector(shoppingList);
+
+        // (iii) Add an item at the end of the list
+        String newItemEnd = "Cereal";
+        shoppingList.add(newItemEnd);
+        System.out.println("\nAfter adding \"" + newItemEnd + "\" at the end:");
+        printVector(shoppingList);
+    }
+
+    // Method to print the contents of the vector
+    public static void printVector(Vector<String> vector) {
+        for (String item : vector) {
+            System.out.println(item);
+        }
+    }
+}
