@@ -1,0 +1,167 @@
+import java.util.Scanner;
+
+class Staff {
+    protected String code;
+    protected String name;
+
+    public Staff(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+}
+class Teacher extends Staff {
+    private String subject;
+    private String publication;
+
+    public Teacher(String code, String name, String subject, String publication) {
+        super(code, name);
+        this.subject = subject;
+        this.publication = publication;
+    }
+
+    public String getDetails() {
+        return "Subject: " + subject + ", Publication: " + publication;
+    }
+}
+class Typist extends Staff {
+    private int speed;
+
+    public Typist(String code, String name, int speed) {
+        super(code, name);
+        this.speed = speed;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+}
+class RegularTypist extends Typist {
+    public RegularTypist(String code, String name, int speed) {
+        super(code, name, speed);
+    }
+}
+class CasualTypist extends Typist {
+    private double dailyWages;
+
+        public CasualTypist(String code, String name, int speed, double dailyWages) {
+        super(code, name, speed);
+        this.dailyWages = dailyWages;
+    }
+        public double getDailyWages() {
+        return dailyWages;
+    }
+}
+class Officer extends Staff {
+    private String grade;
+public Officer(String code, String name, String grade) {
+        super(code, name);
+        this.grade = grade;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+}
+public class EmployeeDatabase {
+    private Staff[] employees;
+    private int numEmployees;
+    public EmployeeDatabase(int capacity) {
+        employees = new Staff[capacity];
+        numEmployees = 0;
+    }
+
+    public void addEmployee(Staff employee) {
+        if (numEmployees < employees.length) {
+            employees[numEmployees] = employee;
+            numEmployees++;
+        } else {
+            System.out.println("Employee database is full.");
+        }
+    }
+    public Staff findEmployeeByName(String name) {
+        for (int i = 0; i < numEmployees; i++) {
+            if (employees[i].getName().equalsIgnoreCase(name)) {
+                return employees[i];
+            }
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        EmployeeDatabase database = new EmployeeDatabase(100); 
+
+        System.out.println("Enter details for Teacher:");
+        System.out.print("Name: ");
+        String teacherName = scanner.nextLine();
+        System.out.print("Code: ");
+        String teacherCode = scanner.nextLine();
+        System.out.print("Subject: ");
+        String subject = scanner.nextLine();
+        System.out.print("Publication: ");
+        String publication = scanner.nextLine();
+        Teacher teacher = new Teacher(teacherCode, teacherName, subject, publication);
+        database.addEmployee(teacher);
+
+        System.out.println("\nEnter details for Casual Typist:");
+        System.out.print("Name: ");
+        String casualTypistName = scanner.nextLine();
+        System.out.print("Code: ");
+        String casualTypistCode = scanner.nextLine();
+        System.out.print("Speed: ");
+        int speed = scanner.nextInt();
+        System.out.print("Daily Wages: ");
+        double dailyWages = scanner.nextDouble();
+        CasualTypist casualTypist = new CasualTypist(casualTypistCode, casualTypistName, speed, dailyWages);
+        database.addEmployee(casualTypist);
+
+        System.out.println("\nEnter details for Regular Typist:");
+        scanner.nextLine(); 
+        System.out.print("Name: ");
+        String regularTypistName = scanner.nextLine();
+        System.out.print("Code: ");
+        String regularTypistCode = scanner.nextLine();
+        System.out.print("Speed: ");
+        int regularSpeed = scanner.nextInt();
+        RegularTypist regularTypist = new RegularTypist(regularTypistCode, regularTypistName, regularSpeed);
+        database.addEmployee(regularTypist);
+
+        System.out.println("\nEnter details for Officer:");
+        scanner.nextLine(); 
+        System.out.print("Name: ");
+        String officerName = scanner.nextLine();
+        System.out.print("Code: ");
+        String officerCode = scanner.nextLine();
+        System.out.print("Grade: ");
+        String grade = scanner.nextLine();
+        Officer officer = new Officer(officerCode, officerName, grade);
+        database.addEmployee(officer);
+
+        System.out.println("\nEnter the name of the employee to search:");
+        String searchName = scanner.nextLine();
+        Staff foundEmployee = database.findEmployeeByName(searchName);
+        if (foundEmployee != null) {
+            if (foundEmployee instanceof Teacher) {
+                System.out.println("Teacher Found: " + foundEmployee.getName() + ", " + ((Teacher) foundEmployee).getDetails());
+            } else if (foundEmployee instanceof CasualTypist) {
+                System.out.println("Casual Typist Found: " + foundEmployee.getName() + ", Speed: " + ((CasualTypist) foundEmployee).getSpeed() + ", Daily Wages: " + ((CasualTypist) foundEmployee).getDailyWages());
+            } else if (foundEmployee instanceof RegularTypist) {
+                System.out.println("Regular Typist Found: " + foundEmployee.getName() + ", Speed: " + ((RegularTypist) foundEmployee).getSpeed());
+            } else if (foundEmployee instanceof Officer) {
+                System.out.println("Officer Found: " + foundEmployee.getName() + ", Grade: " + ((Officer) foundEmployee).getGrade());
+            }
+        } else {
+            System.out.println("Employee not found.");
+        }
+
+        scanner.close();
+    }
+}

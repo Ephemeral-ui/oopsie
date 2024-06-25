@@ -1,0 +1,109 @@
+import java.lang.*;
+
+class Staff {
+    protected String code;
+    protected String name;
+
+    public void initialize(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+}
+
+class Teacher extends Staff {
+    protected String specializations;
+    protected int numOfPublications;
+
+    public void initialize(String code, String name, String specializations, int numOfPublications) {
+        super.initialize(code, name);
+        this.specializations = specializations;
+        this.numOfPublications = numOfPublications;
+    }
+
+    public void display() {
+        System.out.println("\nDetails of Teacher " + name + " are given below: ");
+        System.out.println("Code -: " + code);
+        System.out.println("Specialization -: " + specializations);
+        System.out.println("Number of Publications -: " + numOfPublications);
+    }
+}
+
+class Typist extends Staff {
+    protected int speed;
+
+    public void initialize(String code, String name, int speed) {
+        super.initialize(code, name);
+        this.speed = speed;
+    }
+
+    public void display() {
+        System.out.println("\nDetails of Typist "+name+ " are given below: ");
+        System.out.println("Code -: " + code);
+        System.out.println("Speed -: " + speed + "wpm");
+    }
+}
+
+class Officer extends Staff {
+    protected String grade;
+
+    public void initialize(String code, String name, String grade) {
+        super.initialize(code, name);
+        this.grade = grade;
+    }
+
+    public void display() {
+        System.out.println("\nDetails of officer " + name + " are given below: ");
+        System.out.println("Code -: " + code);
+        System.out.println("Grade -: " + grade);
+    }
+}
+
+class RegularTypist extends Typist {
+    public void initialize(String code, String name, int speed) {
+    super.initialize(code, name, speed);
+    }
+    
+    public void display() {
+        System.out.println("\nDetails of Regular Typist "+name+" are given below: ");
+        System.out.println("Code -: "+ code);
+        System.out.println("Speed -: "+ speed + "wpm");
+    }
+}
+
+class CasualTypist extends Typist {
+    protected double dailyWages;
+
+    public void initialize(String code, String name, int speed, double dailyWages) {
+        super.initialize(code, name, speed);
+        this.dailyWages = dailyWages;
+    }
+
+    public void display() {
+        super.display();
+        System.out.println("Daily Wages -: " + dailyWages + " INR");
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+    
+        Teacher teacher = new Teacher();
+        teacher.initialize("T001", "Shekhar Gupta", "Theory of Computing", 5);
+        teacher.display();
+
+        CasualTypist casual = new CasualTypist();
+        casual.initialize("TYP001", "Maria D'souza", 60, 80.0);
+        casual.display();
+        
+        Officer officer = new Officer();
+        officer.initialize("OF08", "Niharika Pai", "Grade A");
+        officer.display();
+        
+        RegularTypist regular = new RegularTypist();
+        regular.initialize("TYPR007", "Abdul Farooqui", 95);
+        regular.display();
+        
+        
+    
+    }
+}
