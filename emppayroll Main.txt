@@ -1,0 +1,15 @@
+package employeepay;
+
+
+import employeepay.Emppay;
+
+public class Emppayroll {
+    public static void main(String[] args) {
+        // Creating an instance of Emppay
+        Emppay employee1 = new Emppay("John Doe", 1001, 'M', 5000);
+        
+        // Displaying pay details for employee1
+        System.out.println("Employee Payslip:");
+        employee1.displayPaySlip();
+    }
+}

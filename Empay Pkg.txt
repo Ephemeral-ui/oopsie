@@ -1,0 +1,72 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package employeepay;
+
+/**
+ *
+ * @author 7
+ */
+
+public class Emppay {
+
+    private String name;
+    private int empid;
+    private char gender;
+    private double basicPay;
+    
+    // Constructor to initialize data members
+    public Emppay(String name, int empid, char gender, double basicPay) {
+        this.name = name;
+        this.empid = empid;
+        this.gender = gender;
+        this.basicPay = basicPay;
+    }
+    
+    // Method to compute DA (Dearness Allowance)
+    public double computeDA() {
+        return basicPay * 0.2; // Assuming DA is 20% of basic pay
+    }
+    
+    // Method to compute HRA (House Rent Allowance)
+    public double computeHRA() {
+        return basicPay * 0.15; // Assuming HRA is 15% of basic pay
+    }
+    
+    // Method to compute TA (Travel Allowance)
+    public double computeTA() {
+        return basicPay * 0.1; // Assuming TA is 10% of basic pay
+    }
+    
+    // Method to compute gross pay
+    public double computeGrossPay() {
+        return basicPay + computeDA() + computeHRA() + computeTA();
+    }
+    
+    // Method to compute deductions (assuming 10%)
+    public double computeDeductions() {
+        return 0.1 * basicPay;
+    }
+    
+    // Method to compute net pay
+    public double computeNetPay() {
+        return computeGrossPay() - computeDeductions();
+    }
+    
+    // Method to display pay details
+    public void displayPaySlip() {
+        System.out.println("Employee Name: " + name);
+        System.out.println("Employee ID: " + empid);
+        System.out.println("Gender: " + gender);
+        System.out.println("Basic Pay: $" + basicPay);
+        System.out.println("Dearness Allowance (DA): $" + computeDA());
+        System.out.println("House Rent Allowance (HRA): $" + computeHRA());
+        System.out.println("Travel Allowance (TA): $" + computeTA());
+        System.out.println("Gross Pay: $" + computeGrossPay());
+        System.out.println("Deductions: $" + computeDeductions());
+        System.out.println("Net Pay: $" + computeNetPay());
+    }
+}
+
+

@@ -1,0 +1,39 @@
+//main pkg
+
+mport package1.PersonalDetails;
+import package1.AcademicDetails;
+import java.util.Scanner;
+public class Main {
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+System.out.println("------------------");
+System.out.println("Enter Personal Details:");
+System.out.print("Name: ");
+String name = sc.nextLine();
+System.out.print("Address: ");
+String address = sc.nextLine();
+System.out.print("Birthdate: ");
+String dob = sc.nextLine();
+System.out.print("Gender: ");
+String gender = sc.nextLine();
+System.out.print("age: ");
+int age = sc.nextInt();
+PersonalDetails personal = new PersonalDetails(name, address, dob, gender, age);
+System.out.println();
+System.out.println("Enter Academic Details:");
+System.out.print("Semester: ");
+int semester = sc.nextInt();
+sc.nextLine();
+System.out.print("Roll No: ");
+String roll = sc.nextLine();
+System.out.print("branch: ");
+String branch = sc.nextLine();
+System.out.print("Percentage: ");
+double percentage = sc.nextDouble();
+System.out.print("Attendance: ");
+int attendance = sc.nextInt();
+AcademicDetails academic = new AcademicDetails( percentage,semester, attendance,roll,branch);
+personal.displayPersonalDetails();
+academic.displayAcademicDetails();
+}
+}
