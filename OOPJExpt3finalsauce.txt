@@ -1,0 +1,105 @@
+import java.util.Scanner;
+
+/**
+ *
+ * @author 4
+ */
+public class BankAccount {
+    private String depositorName;
+    private int accountNumber;
+    private String accountType;
+    private double balance;
+
+    // Constructor to assign initial values
+    public BankAccount(String depositorName, int accountNumber, String accountType, double initialBalance) {
+        this.depositorName = depositorName;
+        this.accountNumber = accountNumber;
+        this.accountType = accountType;
+        this.balance = initialBalance;
+    }
+
+    // Method to deposit an amount
+    public void deposit(double amount) {
+        balance += amount;
+        System.out.println("Amount deposited successfully.");
+        System.out.println("New account balance:"+ balance);
+    }
+
+    // Method to withdraw an amount after checking balance
+    public void withdraw(double amount) {
+        if (amount > balance) {
+            System.out.println("Insufficient funds. Transaction failed.");
+        } else {
+            balance -= amount;
+            System.out.println("Amount withdrawn successfully.");
+            System.out.println("New account balance:" + balance);
+        }
+    }
+    
+    public void displayBalance() {
+        System.out.println("Name: " + depositorName);
+        System.out.println("Balance: " + balance);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        BankAccount account = null;
+
+        int choice;
+        do {
+            System.out.println("\n1. Create New Account\n2. Deposit money\n3. Withdraw money\n4. Check Balance\n5. Exit");
+            System.out.println("Enter your choice:");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter depositor's name:");
+                    String name = scanner.nextLine(); 
+                    name = scanner.nextLine(); 
+                    System.out.println("Enter account number:");
+                    int accNumber = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Enter account type:");
+                    String accType = scanner.nextLine();
+                    System.out.println("Enter initial balance:");
+                    double initialBalance = scanner.nextDouble();
+                    account = new BankAccount(name, accNumber, accType, initialBalance);
+                    System.out.println("New account created successfully.");
+                    break;
+                case 2:
+                    if (account == null) {
+                        System.out.println("No account exists. Please create a new account first.");
+                    } else {
+                        System.out.println("Enter amount to deposit:");
+                        double depositAmount = scanner.nextDouble();
+                        account.deposit(depositAmount);
+                    }
+                    break;
+                case 3:
+                    if (account == null) {
+                        System.out.println("No account exists. Please create a new account first.");
+                    } else {
+                        System.out.println("Enter amount to withdraw:");
+                        double withdrawAmount = scanner.nextDouble();
+                        account.withdraw(withdrawAmount);
+                    }
+                    break;
+                case 4:
+                    if (account == null) {
+                        System.out.println("No account exists. Please create a new account first.");
+                    } else {
+                        account.displayBalance();
+                    }
+                    break;
+                case 5:
+                    System.out.println("Exiting the program. Thank you!");
+                    break;
+                default:
+                    System.out.println("Invalid choice entered. Please try again.");
+            }
+        } while (choice != 5);
+
+        scanner.close();
+    }
+}
